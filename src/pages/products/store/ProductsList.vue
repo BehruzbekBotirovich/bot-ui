@@ -18,7 +18,7 @@ const allSumm = computed(() =>
 <template>
     <search-bar />
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6 p-3 mb-8 ">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 lg:gap-6 p-3 pb-8 ">
         <ProductCard />
     </div>
 

@@ -3,7 +3,7 @@ import { useProductStore } from "@/stores/products.pinia";
 import IconPlus from "@/components/icon/IconPlus.vue";
 import IconMinus from "@/components/icon/IconMinus.vue";
 import { formatAmount } from "@/helpers/amount";
-
+import defImg from '@/assets/images/default_img.png'
 const productStore = useProductStore();
 
 </script>
@@ -21,7 +21,7 @@ const productStore = useProductStore();
 
     <div v-for="el in productStore.products" :key="el.id" class="p-[10px] rounded-lg bg-white">
         <div class="mb-1">
-            <img :src="el.img ? el.img : '/src/assets/images/default_img.png'" class="w-full aspect-square rounded-md"
+            <img :src="el.img ? el.img : defImg " class="w-full aspect-square rounded-md"
                 alt="product_img">
         </div>
         <div class="mb-2">
