@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+:root {
+  --main-blue: #005CE8;
+  --main-red: #E84646;
+  --success-green: #0CCA6B;
+  --body-light: #F0F0F6;
+  --body-gray-light: #F1F2F5;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+
+$shine-width: 200px;
+$base-color: #F1F2F5;
+$shine-color: rgba(255, 255, 255, 0.6);
+
+.skeleton-bg {
+  position: relative;
+  background: $base-color;
+  overflow: hidden;
+  border-radius: 6px; 
+
+  &:empty {
+    &:before {
+      content: '';
+      background-image: linear-gradient(90deg, 
+        $base-color 0%, 
+        $shine-color 50%, 
+        $base-color 100%);
+      position: absolute;
+      background-repeat: no-repeat;
+      background-size: $shine-width 100%;
+      left: -$shine-width;
+      width: $shine-width;
+      height: 100%;
+      animation: shine 1.2s infinite ease-in-out;
+    }
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -$shine-width;
+  }
+  100% {
+    left: 100%;
+  }
+}
