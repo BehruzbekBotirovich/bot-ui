@@ -3,7 +3,9 @@ import IconPlus from "@/components/icon/IconPlus.vue";
 import IconMinus from "@/components/icon/IconMinus.vue";
 import {formatAmount} from "@/helpers/amount";
 import defImg from '@/assets/images/default_img.png'
+import {useProductStore} from "@/stores/products.pinia.js";
 
+const productStore = useProductStore();
 const props = defineProps({
   product: {
     type: Object,

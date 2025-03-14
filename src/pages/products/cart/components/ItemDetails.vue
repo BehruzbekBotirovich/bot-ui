@@ -3,6 +3,7 @@ import {ref, computed, defineEmits, defineProps} from 'vue'
 import {useProductStore} from '@/stores/products.pinia'
 import IconPlus from '@/components/icon/IconPlus.vue'
 import IconMinus from '@/components/icon/IconMinus.vue'
+import defImg from '@/assets/images/default_img.png'
 
 const productStore = useProductStore()
 const emit = defineEmits(['close'])
@@ -24,7 +25,7 @@ const product = computed(() => productStore.products.find((el) => el.id === prop
       <span class=" text-center w-2/3">{{ product?.name }}</span>
     </p>
     <div class="flex items-center justify-center">
-      <img :src="product?.img ? product.img : '/src/assets/images/default_img.png' " class="w-2/3 aspect-square"
+      <img :src="product?.img ? product.img : defImg " class="w-2/3 aspect-square"
            alt="">
     </div>
 
