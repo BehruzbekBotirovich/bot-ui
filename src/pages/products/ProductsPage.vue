@@ -5,7 +5,7 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-    <div class="bg-gray-body h-screen relative">
+    <div class="bg-gray-body h-screen relative overflow-auto">
         <router-view />
     </div>
 
