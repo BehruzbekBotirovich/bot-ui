@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+import pepsiImg from '@/assets/remove/pepsi.png';
+import chortoqImg from '@/assets/remove/chortoq.png';
 
 export const useProductStore = defineStore('products', {
     state: () => ({
@@ -7,7 +9,7 @@ export const useProductStore = defineStore('products', {
                 id: 1,
                 name: 'Напиток Pepsi  0,5л ',
                 price: 7000,
-                img: '/src/assets/remove/pepsi.png',
+                img: pepsiImg,
                 quantity: 1,
             },
 
@@ -22,7 +24,7 @@ export const useProductStore = defineStore('products', {
                 id: 4,
                 name: 'Мин. Вода Chortoq',
                 price: 6000,
-                img: '/src/assets/remove/chortoq.png',
+                img: chortoqImg,
                 quantity: 0,
             }
         ],
@@ -31,7 +33,7 @@ export const useProductStore = defineStore('products', {
                 id: 1,
                 name: 'Напиток Pepsi  0,5л ',
                 price: 7000,
-                img: '/src/assets/remove/pepsi.png',
+                img: pepsiImg,
                 quantity: 1,
             },
             {
