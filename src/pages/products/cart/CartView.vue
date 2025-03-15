@@ -15,17 +15,23 @@
     <div v-for="el in productStore.cart" :key="el.id" class="flex items-center gap-2 py-3 px-4 bg-white relative">
       <div>
         <div class="w-[50px]">
-          <img :src="el.img ? el.img : '/src/assets/images/default_img.png'" class="aspect-square w-[50px]"
+          <img :src="el.img ? el.img : defImg" class="aspect-square w-[50px]"
                alt="product_img">
         </div>
       </div>
-      <div class="w-3/5">
+      <div class="text-wrapper">
         <h3 class="text-dark text-md truncate">{{ el.name }}</h3>
         <p class="text-dark font-bold text-md">{{ formatAmount(el.price) }} cум</p>
       </div>
-      <div @click="openModal(el.id)"
-           class="bg-blue/10 py-2 text-center text-blue font-bold  w-16 rounded-lg ml-auto">
-        {{ el.quantity }} шт
+      <!--      <div @click="openModal(el.id)"-->
+      <!--           class="bg-blue/10 py-2 text-center text-blue font-bold  w-16 rounded-lg ml-auto">-->
+      <!--        {{ el.quantity }} шт-->
+      <!--      </div>-->
+      <div
+          class="w-[100px] flex items-center justify-between p-2 bg-blue/10  text-center  font-bold rounded-lg ml-auto">
+        <icon-minus @click="productStore.decrementProduct(el.id)" color="#0077ff"/>
+        <span class="text-nowrap text-blue"> {{ el.quantity }} шт</span>
+        <icon-plus @click="productStore.addToCart(el.id)" color="#0077ff"/>
       </div>
       <div class="border-line"></div>
     </div>
@@ -47,9 +53,9 @@
     <p class="text-center text-gray text-md ">Корзина пуста</p>
   </div>
 
-  <modal-component v-model:open="showModal">
-    <ItemDetails :id="selectedProductId" @close="showModal=false"></ItemDetails>
-  </modal-component>
+  <!--  <modal-component v-model:open="showModal">-->
+  <!--    <ItemDetails :id="selectedProductId" @close="showModal=false"></ItemDetails>-->
+  <!--  </modal-component>-->
 
 </template>
 
@@ -58,23 +64,25 @@ import {useProductStore} from '@/stores/products.pinia';
 import {useRouter} from 'vue-router';
 import {computed, ref} from 'vue';
 import {formatAmount} from '@/helpers/amount';
+
 import ModalComponent from '@/components/ModalComponent.vue';
 import ItemDetails from './components/ItemDetails.vue';
-
-const showModal = ref(false);
-const selectedProductId = ref(null);
-
-const openModal = (id) => {
-  selectedProductId.value = id;
-  showModal.value = true;
-}
-
 // icons
+import IconPlus from "@/components/icon/IconPlus.vue";
+import IconMinus from "@/components/icon/IconMinus.vue"
 import IconTrash from '@/components/icon/IconTrash.vue';
 import IconBack from '@/components/icon/IconBack.vue';
+import defImg from '@/assets/images/default_img.png'
 
 const router = useRouter();
 const productStore = useProductStore();
+// const showModal = ref(false);
+// const selectedProductId = ref(null);
+
+// const openModal = (id) => {
+//   selectedProductId.value = id;
+//   showModal.value = true;
+// }
 
 const clean = () => {
   productStore.products.forEach((item) => {
@@ -100,5 +108,9 @@ const checkout = () => {
   width: calc(100% - 90px);
   height: 0.5px;
   background-color: #0000001A;
+}
+
+.text-wrapper {
+  width: calc(100% - 170px);
 }
 </style>

@@ -1,9 +1,6 @@
 <template>
   <nav class="">
-    <div class="flex gap-2 bg-white p-3 pb-1">
-      <button class="p-2 pl-0" @click="router.back();">
-        <icon-back/>
-      </button>
+    <div class="bg-white p-3 pb-1">
       <!-- input -->
       <div class="relative w-full max-w-md">
         <svg class="absolute left-3 top-1/2  -translate-y-1/2" width="20" height="20" viewBox="0 0 20 20"
