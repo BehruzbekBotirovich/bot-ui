@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from "vue";
+import { computed , onMounted} from "vue";
 import { useProductStore } from "@/stores/products.pinia";
 import { useRouter } from "vue-router";
 import { formatAmount } from "@/helpers/amount";
@@ -8,7 +8,9 @@ import ProductCard from "./components/ProductCard.vue";
 import SearchBar from "./components/SearchBar.vue";
 
 import { useRoute } from 'vue-router';
-
+onMounted(()=>{
+  console.log(window?.Telegram)
+})
 const route = useRoute();
 const dataQuery = route.query;
 
