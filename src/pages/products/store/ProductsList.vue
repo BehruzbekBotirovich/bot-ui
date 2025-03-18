@@ -1,5 +1,5 @@
 <script setup>
-import { computed , onMounted} from "vue";
+import { computed, onMounted , ref} from "vue";
 import { useProductStore } from "@/stores/products.pinia";
 import { useRouter } from "vue-router";
 import { formatAmount } from "@/helpers/amount";
@@ -8,9 +8,12 @@ import ProductCard from "./components/ProductCard.vue";
 import SearchBar from "./components/SearchBar.vue";
 
 import { useRoute } from 'vue-router';
-onMounted(()=>{
+const test2 = ref()
+onMounted(() => {
+  test2.value = window?.Telegram ? JSON.stringify(window?.Telegram?.initDataUnsafe) : null
   console.log(window?.Telegram)
 })
+
 const route = useRoute();
 const dataQuery = route.query;
 
@@ -25,6 +28,8 @@ const isCartNotEmpty = computed(() => productStore.cart.length > 0);
   <div class="relative">
     <SearchBar />
     {{ dataQuery }}
+    {{ test2 }}
+
     <div :class="[isCartNotEmpty ? 'products-wrapper' : 'wrapper', 'grid grid-cols-2 gap-2 overflow-y-auto p-3']">
       <ProductCard v-for="item in productStore.products" :product="item" :key="item.id" />
     </div>
