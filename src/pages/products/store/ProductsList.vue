@@ -32,6 +32,7 @@ const isCartNotEmpty = computed(() => productStore.cart.length > 0);
     <pre>
       {{ dataQuery }}
       {{ test2 }}
+      {{ initData }}
     </pre>
 
     <div :class="[isCartNotEmpty ? 'products-wrapper' : 'wrapper', 'grid grid-cols-2 gap-2 overflow-y-auto p-3']">
