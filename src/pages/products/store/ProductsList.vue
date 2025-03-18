@@ -27,8 +27,10 @@ const isCartNotEmpty = computed(() => productStore.cart.length > 0);
 <template>
   <div class="relative">
     <SearchBar />
-    {{ dataQuery }}
-    {{ test2 }}
+    <pre>
+      {{ dataQuery }}
+      {{ test2 }}
+    </pre>
 
     <div :class="[isCartNotEmpty ? 'products-wrapper' : 'wrapper', 'grid grid-cols-2 gap-2 overflow-y-auto p-3']">
       <ProductCard v-for="item in productStore.products" :product="item" :key="item.id" />
