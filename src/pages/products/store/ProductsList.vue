@@ -9,8 +9,10 @@ import SearchBar from "./components/SearchBar.vue";
 
 import { useRoute } from 'vue-router';
 const test2 = ref()
+const initData = ref()
 onMounted(() => {
   test2.value = window?.Telegram ? JSON.stringify(window?.Telegram?.WebApp?.initDataUnsafe) : null
+  initData.value = window?.Telegram ? JSON.stringify(window?.Telegram?.WebApp?.initData) : null
   console.log(window?.Telegram)
 })
 
