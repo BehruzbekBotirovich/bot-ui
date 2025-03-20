@@ -36,6 +36,7 @@
     </div>
     <pre>
     {{ productStore.location }}
+    {{ productStore.phoneNumber }}
     {{ productStore.error }}
     </pre>
   </div>

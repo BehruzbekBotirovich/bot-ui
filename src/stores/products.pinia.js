@@ -105,6 +105,7 @@ export const useProductStore = defineStore('products', {
             },
         ],
         location: null,
+        phoneNumber: null,
         loading: false,
         error: null
     }),
@@ -150,36 +151,41 @@ export const useProductStore = defineStore('products', {
 
         requestLocation() {
             return new Promise((resolve, reject) => {
-                if (!window.Telegram || !window.Telegram.WebApp) {
-                    return reject("Telegram API не найден!");
+                if (!navigator.geolocation) {
+                    this.error = "Геолокация не поддерживается браузером!";
+                    return reject("Геолокация не поддерживается");
                 }
 
-                const tg = window.Telegram.WebApp;
-                tg.showPopup({
-                    title: "Отправить геолокацию",
-                    message: "Telegram запросит вашу геолокацию",
-                    buttons: [
-                        { text: "Отправить", type: "default" },
-                        { text: "Отмена", type: "cancel" }
-                    ],
-                }, (btnId) => {
-                    if (btnId === 0) { // Если пользователь нажал "Отправить"
-                        tg.sendData(JSON.stringify({ action: "request_location" }));
-                    }
-                });
-                window.addEventListener("message", (event) => {
-                    if (event.data && event.data.latitude && event.data.longitude) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
                         this.location = {
-                            latitude: event.data.latitude,
-                            longitude: event.data.longitude,
-                            locationDescription: event.data.locationDescription || null,
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            locationDescription: null,
                         };
                         resolve(this.location);
-                    } else {
-                        this.error = "Не удалось получить геолокацию";
+                    },
+                    (error) => {
+                        this.error = "Не удалось получить геолокацию: " + error.message;
+                        reject(error);
                     }
-                });
+                );
             });
+        },
+
+        requestPhoneNumber() {
+            if (!window.Telegram || !window.Telegram.WebApp) {
+                console.error("Telegram API не найден!");
+                return;
+            }
+
+            const user = window.Telegram.WebApp.initDataUnsafe.user;
+            if (user && user.phone_number) {
+                this.phoneNumber = user.phone_number;
+                console.log("📱 Номер телефона:", this.phoneNumber);
+            } else {
+                console.warn("Телефон не найден. Нужно запросить его через бота.");
+            }
         },
 
 
