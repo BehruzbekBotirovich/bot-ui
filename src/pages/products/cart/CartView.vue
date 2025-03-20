@@ -1,13 +1,13 @@
 <template>
   <div class="bg-white flex items-center justify-between p-3 border-b border-gray-light">
     <button class="p-2" @click="router.back();">
-      <icon-back/>
+      <icon-back />
     </button>
     <div class="text-dark font-semibold">
       Корзинка
     </div>
     <button class="p-2" @click="clean">
-      <icon-trash/>
+      <icon-trash />
     </button>
   </div>
 
@@ -15,8 +15,7 @@
     <div v-for="el in productStore.cart" :key="el.id" class="flex items-center gap-2 py-3 px-4 bg-white relative">
       <div>
         <div class="w-[50px]">
-          <img :src="el.img ? el.img : defImg" class="aspect-square w-[50px]"
-               alt="product_img">
+          <img :src="el.img ? el.img : defImg" class="aspect-square w-[50px]" alt="product_img">
         </div>
       </div>
       <div class="text-wrapper">
@@ -28,18 +27,18 @@
       <!--        {{ el.quantity }} шт-->
       <!--      </div>-->
       <div
-          class="w-[100px] flex items-center justify-between p-2 bg-blue/10  text-center  font-bold rounded-lg ml-auto">
-        <icon-minus @click="productStore.decrementProduct(el.id)" color="#0077ff"/>
+        class="w-[100px] flex items-center justify-between p-2 bg-blue/10  text-center  font-bold rounded-lg ml-auto">
+        <icon-minus @click="productStore.decrementProduct(el.id)" color="#0077ff" />
         <span class="text-nowrap text-blue"> {{ el.quantity }} шт</span>
-        <icon-plus @click="productStore.addToCart(el.id)" color="#0077ff"/>
+        <icon-plus @click="productStore.addToCart(el.id)" color="#0077ff" />
       </div>
       <div class="border-line"></div>
     </div>
-
+    {{ productStore.location }}
   </div>
 
   <div v-if="productStore.cart.length > 0"
-       class="fixed w-full bottom-0 left-0  flex items-center justify-between bg-white p-4  mt-2">
+    class="fixed w-full bottom-0 left-0  flex items-center justify-between bg-white p-4  mt-2">
     <div>
       <p class="text-dark font-bold text-xl"> {{ formatAmount(allSumm) }} сум</p>
     </div>
@@ -60,10 +59,10 @@
 </template>
 
 <script setup>
-import {useProductStore} from '@/stores/products.pinia';
-import {useRouter} from 'vue-router';
-import {computed, ref} from 'vue';
-import {formatAmount} from '@/helpers/amount';
+import { useProductStore } from '@/stores/products.pinia';
+import { useRouter } from 'vue-router';
+import { computed, ref } from 'vue';
+import { formatAmount } from '@/helpers/amount';
 
 import ModalComponent from '@/components/ModalComponent.vue';
 import ItemDetails from './components/ItemDetails.vue';
@@ -92,7 +91,7 @@ const clean = () => {
 }
 
 const allSumm = computed(() =>
-    productStore.cart.reduce((acc, el) => acc + el.price * el.quantity, 0)
+  productStore.cart.reduce((acc, el) => acc + el.price * el.quantity, 0)
 );
 
 const checkout = () => {

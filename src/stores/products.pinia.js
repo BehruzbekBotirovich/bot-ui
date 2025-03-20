@@ -104,6 +104,7 @@ export const useProductStore = defineStore('products', {
                 category: 'drink'
             },
         ],
+        location: null,
         loading: false,
         error: null
     }),
@@ -114,7 +115,7 @@ export const useProductStore = defineStore('products', {
         totalCartSum: (state) => state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
         isInCart: (state) => (id) => state.cart.some(item => item.id === id)
     },
-    
+
     actions: {
         addToCart(id) {
             const product = this.products.find(p => p.id === id);
@@ -146,6 +147,39 @@ export const useProductStore = defineStore('products', {
 
             product.quantity--;
         },
+
+        requestLocation() {
+            return new Promise((resolve, reject) => {
+                if (!window.Telegram || !window.Telegram.WebApp) {
+                    return reject("Telegram API не найден!");
+                }
+
+                const tg = window.Telegram.WebApp;
+                tg.showPopup({
+                    title: "Отправить геолокацию",
+                    message: "Telegram запросит вашу геолокацию",
+                    buttons: [
+                        { text: "Отправить", type: "default" },
+                        { text: "Отмена", type: "cancel" }
+                    ],
+                }, (btnId) => {
+                    if (btnId === 0) { // Если пользователь нажал "Отправить"
+                        tg.sendData(JSON.stringify({ action: "request_location" }));
+                    }
+                });
+                window.addEventListener("message", (event) => {
+                    if (event.data && event.data.latitude && event.data.longitude) {
+                        this.location = {
+                            latitude: event.data.latitude,
+                            longitude: event.data.longitude,
+                            locationDescription: event.data.locationDescription || null,
+                        };
+                        resolve(this.location);
+                    }
+                });
+            });
+        },
+
 
         removeFromCart(id) {
             this.cart = this.cart.filter(item => item.id !== id);
