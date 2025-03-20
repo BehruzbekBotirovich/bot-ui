@@ -46,7 +46,7 @@
     <div>
       <p class="text-dark font-bold text-xl"> {{ formatAmount(allSumm) }} сум</p>
     </div>
-
+    <button @click="productStore.requestPhoneNumber()" class="bg-blue text-white">phoneNumber</button>
     <button @click="productStore.requestLocation()" class="bg-blue  text-white rounded-lg font-bold px-6 py-4">
       Оплата
     </button>
