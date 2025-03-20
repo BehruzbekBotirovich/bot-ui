@@ -175,6 +175,8 @@ export const useProductStore = defineStore('products', {
                             locationDescription: event.data.locationDescription || null,
                         };
                         resolve(this.location);
+                    } else {
+                        this.error = "Не удалось получить геолокацию";
                     }
                 });
             });

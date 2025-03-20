@@ -34,7 +34,10 @@
       </div>
       <div class="border-line"></div>
     </div>
+    <pre>
     {{ productStore.location }}
+    {{ productStore.error }}
+    </pre>
   </div>
 
   <div v-if="productStore.cart.length > 0"
